@@ -1,0 +1,659 @@
+
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Belajar Sistem Pernapasan Manusia</title>
+
+<style>
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: 'Segoe UI', sans-serif;
+    background: #eef7f8;
+    color: #243b53;
+}
+
+header {
+    background: linear-gradient(135deg, #087e8b, #20b2aa);
+    color: white;
+    padding: 25px;
+    text-align: center;
+}
+
+header h1 {
+    font-size: 30px;
+    margin-bottom: 8px;
+}
+
+nav {
+    background: #075b65;
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 10px;
+    padding: 12px;
+}
+
+nav button {
+    background: transparent;
+    border: 1px solid white;
+    color: white;
+    padding: 10px 18px;
+    border-radius: 20px;
+    cursor: pointer;
+}
+
+nav button:hover {
+    background: white;
+    color: #075b65;
+}
+
+.container {
+    max-width: 950px;
+    margin: 30px auto;
+    padding: 20px;
+}
+
+.page {
+    display: none;
+    background: white;
+    padding: 30px;
+    border-radius: 18px;
+    box-shadow: 0 5px 20px #00000012;
+    min-height: 400px;
+}
+
+.page.active {
+    display: block;
+}
+
+h2 {
+    color: #087e8b;
+    margin-bottom: 18px;
+}
+
+h3 {
+    margin: 18px 0 10px;
+    color: #087e8b;
+}
+
+p, li {
+    line-height: 1.8;
+    margin-bottom: 10px;
+}
+
+ul {
+    padding-left: 25px;
+}
+
+.hero {
+    text-align: center;
+    padding: 35px 10px;
+}
+
+.hero .emoji {
+    font-size: 90px;
+    margin: 20px;
+}
+
+.hero p {
+    max-width: 650px;
+    margin: 15px auto;
+}
+
+.main-btn, .nav-btn {
+    background: #0b929c;
+    color: white;
+    border: none;
+    padding: 12px 25px;
+    border-radius: 10px;
+    cursor: pointer;
+    margin: 10px 5px;
+    font-size: 15px;
+}
+
+.main-btn:hover, .nav-btn:hover {
+    background: #075b65;
+}
+
+.slide-number {
+    color: #888;
+    text-align: right;
+    margin-top: 20px;
+}
+
+.organ {
+    background: #e6f6f5;
+    border-left: 5px solid #0b929c;
+    padding: 15px;
+    border-radius: 8px;
+    margin: 15px 0;
+}
+
+.quiz-question {
+    background: #f0fafa;
+    padding: 20px;
+    border-radius: 12px;
+    margin: 18px 0;
+}
+
+.option {
+    display: block;
+    padding: 12px;
+    margin: 8px 0;
+    background: white;
+    border: 1px solid #b7dada;
+    border-radius: 8px;
+    cursor: pointer;
+}
+
+.option:hover {
+    background: #d8f3f0;
+}
+
+.option input {
+    margin-right: 10px;
+}
+
+#result {
+    margin-top: 20px;
+    padding: 20px;
+    border-radius: 10px;
+    background: #e3f7ee;
+    display: none;
+}
+
+footer {
+    text-align: center;
+    padding: 20px;
+    color: #668;
+}
+</style>
+</head>
+
+<body>
+
+<header>
+    <h1>🫁 SISTEM PERNAPASAN MANUSIA</h1>
+    <p>Media Pembelajaran Interaktif IPA</p>
+</header>
+
+<nav>
+    <button onclick="showPage('home')">Beranda</button>
+    <button onclick="showPage('materi')">Materi PPT</button>
+    <button onclick="showPage('organ')">Organ Pernapasan</button>
+    <button onclick="showPage('proses')">Proses Pernapasan</button>
+    <button onclick="showPage('kuis')">Kuis</button>
+</nav>
+
+<div class="container">
+
+<!-- BERANDA -->
+<section id="home" class="page active">
+    <div class="hero">
+        <div class="emoji">🫁</div>
+        <h2>Selamat Datang!</h2>
+        <p>
+            Selamat datang di website pembelajaran Sistem
+            Pernapasan Manusia. Mari belajar mengenal organ,
+            fungsi, dan proses pernapasan manusia dengan cara
+            yang menyenangkan dan interaktif.
+        </p>
+        <button class="main-btn" onclick="showPage('materi')">
+            Mulai Belajar →
+        </button>
+    </div>
+</section>
+
+<!-- MATERI PPT -->
+<section id="materi" class="page">
+    <h2>📚 Materi Sistem Pernapasan</h2>
+
+    <div id="slideContent"></div>
+
+    <div style="text-align:center">
+        <button class="nav-btn" onclick="prevSlide()">❮ Sebelumnya</button>
+        <button class="nav-btn" onclick="nextSlide()">Berikutnya ❯</button>
+    </div>
+
+    <div class="slide-number" id="slideNumber"></div>
+</section>
+
+<!-- ORGAN -->
+<section id="organ" class="page">
+    <h2>🫁 Organ-Organ Pernapasan Manusia</h2>
+
+    <div class="organ">
+        <h3>1. Hidung</h3>
+        <p>
+            Hidung merupakan tempat masuknya udara.
+            Rambut hidung dan lendir membantu menyaring
+            debu serta kotoran.
+        </p>
+    </div>
+
+    <div class="organ">
+        <h3>2. Faring</h3>
+        <p>
+            Faring adalah saluran penghubung antara
+            rongga hidung dan laring.
+        </p>
+    </div>
+
+    <div class="organ">
+        <h3>3. Laring</h3>
+        <p>
+            Laring merupakan pangkal tenggorokan yang
+            mengandung pita suara.
+        </p>
+    </div>
+
+    <div class="organ">
+        <h3>4. Trakea</h3>
+        <p>
+            Trakea atau batang tenggorokan merupakan
+            saluran udara menuju bronkus.
+        </p>
+    </div>
+
+    <div class="organ">
+        <h3>5. Bronkus dan Bronkiolus</h3>
+        <p>
+            Bronkus merupakan cabang trakea yang menuju
+            paru-paru. Bronkiolus adalah cabang kecil bronkus.
+        </p>
+    </div>
+
+    <div class="organ">
+        <h3>6. Alveolus</h3>
+        <p>
+            Alveolus merupakan kantung udara kecil tempat
+            pertukaran oksigen dan karbon dioksida.
+        </p>
+    </div>
+
+    <div class="organ">
+        <h3>7. Paru-Paru</h3>
+        <p>
+            Paru-paru merupakan organ utama pernapasan
+            manusia yang menjadi tempat berlangsungnya
+            pertukaran gas.
+        </p>
+    </div>
+</section>
+
+<!-- PROSES -->
+<section id="proses" class="page">
+    <h2>🔄 Proses Pernapasan Manusia</h2>
+
+    <div class="organ">
+        <h3>1. Inspirasi (Menghirup Udara)</h3>
+        <p>
+            Saat inspirasi, diafragma berkontraksi dan
+            bergerak mendatar. Volume rongga dada meningkat,
+            tekanan udara di paru-paru menurun, sehingga
+            udara masuk ke paru-paru.
+        </p>
+    </div>
+
+    <div class="organ">
+        <h3>2. Ekspirasi (Mengembuskan Udara)</h3>
+        <p>
+            Saat ekspirasi, diafragma relaksasi dan
+            melengkung ke atas. Volume rongga dada menurun,
+            tekanan udara di paru-paru meningkat, sehingga
+            udara keluar.
+        </p>
+    </div>
+
+    <h3>Jalur Masuknya Udara</h3>
+    <p style="text-align:center;font-weight:bold;color:#087e8b">
+        Hidung → Faring → Laring → Trakea → Bronkus
+        → Bronkiolus → Alveolus
+    </p>
+
+    <div class="organ">
+        <h3>Pertukaran Gas</h3>
+        <p>
+            Di alveolus terjadi pertukaran gas secara difusi.
+            Oksigen (O₂) masuk ke darah, sedangkan
+            karbon dioksida (CO₂) berpindah dari darah
+            ke alveolus untuk dikeluarkan.
+        </p>
+    </div>
+</section>
+
+<!-- KUIS -->
+<section id="kuis" class="page">
+    <h2>📝 Kuis Sistem Pernapasan</h2>
+    <p>Jawablah 10 pertanyaan berikut dengan benar!</p>
+
+    <form id="quizForm">
+        <div id="questions"></div>
+        <button type="button" class="main-btn" onclick="checkAnswers()">
+            Periksa Jawaban
+        </button>
+        <button type="button" class="main-btn"
+            onclick="resetQuiz()">Ulangi Kuis</button>
+    </form>
+
+    <div id="result"></div>
+</section>
+
+</div>
+
+<footer>
+    <p>Media Pembelajaran IPA | Sistem Pernapasan Manusia</p>
+    <p>Belajar Mudah, Menyenangkan, dan Interaktif 🌱</p>
+</footer>
+
+<script>
+
+// NAVIGASI HALAMAN
+function showPage(id) {
+    document.querySelectorAll('.page').forEach(page => {
+        page.classList.remove('active');
+    });
+    document.getElementById(id).classList.add('active');
+}
+
+// MATERI PPT
+const slides = [
+{
+title: "Slide 1 - Pengertian Sistem Pernapasan",
+content: `
+<p>Sistem pernapasan adalah sistem organ yang berfungsi
+untuk mengambil oksigen (O₂) dari lingkungan dan
+mengeluarkan karbon dioksida (CO₂) dari tubuh.</p>
+<h3>Fungsi utama:</h3>
+<ul>
+<li>Mengambil oksigen untuk metabolisme sel.</li>
+<li>Mengeluarkan karbon dioksida.</li>
+<li>Membantu menjaga keseimbangan tubuh.</li>
+</ul>`
+},
+{
+title: "Slide 2 - Tujuan Pembelajaran",
+content: `
+<p>Setelah mempelajari materi ini, siswa diharapkan mampu:</p>
+<ul>
+<li>Menjelaskan pengertian sistem pernapasan.</li>
+<li>Menyebutkan organ-organ pernapasan.</li>
+<li>Menjelaskan fungsi setiap organ.</li>
+<li>Memahami proses inspirasi dan ekspirasi.</li>
+<li>Menjelaskan pertukaran gas di alveolus.</li>
+</ul>`
+},
+{
+title: "Slide 3 - Organ Pernapasan",
+content: `
+<p>Organ-organ yang terlibat dalam sistem pernapasan:</p>
+<ul>
+<li>Hidung</li>
+<li>Faring</li>
+<li>Laring</li>
+<li>Trakea</li>
+<li>Bronkus</li>
+<li>Bronkiolus</li>
+<li>Alveolus dan paru-paru</li>
+</ul>
+<p>Setiap organ memiliki fungsi yang berbeda tetapi
+saling bekerja sama.</p>`
+},
+{
+title: "Slide 4 - Fungsi Organ Pernapasan",
+content: `
+<ul>
+<li><b>Hidung:</b> Menyaring, menghangatkan, dan melembapkan udara.</li>
+<li><b>Faring:</b> Menyalurkan udara dari rongga hidung.</li>
+<li><b>Laring:</b> Mengandung pita suara.</li>
+<li><b>Trakea:</b> Menyalurkan udara menuju bronkus.</li>
+<li><b>Bronkus:</b> Cabang trakea menuju paru-paru.</li>
+<li><b>Alveolus:</b> Tempat pertukaran gas.</li>
+</ul>`
+},
+{
+title: "Slide 5 - Mekanisme Inspirasi",
+content: `
+<p>Inspirasi adalah proses masuknya udara ke paru-paru.</p>
+<ul>
+<li>Diafragma berkontraksi.</li>
+<li>Diafragma bergerak mendatar.</li>
+<li>Volume rongga dada meningkat.</li>
+<li>Tekanan udara dalam paru-paru menurun.</li>
+<li>Udara masuk ke paru-paru.</li>
+</ul>`
+},
+{
+title: "Slide 6 - Mekanisme Ekspirasi",
+content: `
+<p>Ekspirasi adalah proses keluarnya udara dari paru-paru.</p>
+<ul>
+<li>Diafragma relaksasi.</li>
+<li>Diafragma melengkung ke atas.</li>
+<li>Volume rongga dada menurun.</li>
+<li>Tekanan udara dalam paru-paru meningkat.</li>
+<li>Udara keluar dari paru-paru.</li>
+</ul>`
+},
+{
+title: "Slide 7 - Pertukaran Gas",
+content: `
+<p>Pertukaran gas terjadi di alveolus melalui proses difusi.</p>
+<ul>
+<li>Oksigen berdifusi dari alveolus menuju kapiler darah.</li>
+<li>Karbon dioksida berdifusi dari darah menuju alveolus.</li>
+<li>Oksigen diangkut oleh darah ke seluruh tubuh.</li>
+</ul>`
+},
+{
+title: "Slide 8 - Gangguan Sistem Pernapasan",
+content: `
+<p>Beberapa gangguan pada sistem pernapasan:</p>
+<ul>
+<li><b>Asma:</b> Penyempitan saluran pernapasan.</li>
+<li><b>Bronkitis:</b> Peradangan pada bronkus.</li>
+<li><b>Pneumonia:</b> Infeksi yang menyebabkan peradangan alveolus.</li>
+<li><b>Tuberkulosis:</b> Penyakit infeksi akibat bakteri Mycobacterium tuberculosis.</li>
+</ul>`
+},
+{
+title: "Slide 9 - Cara Menjaga Kesehatan",
+content: `
+<ul>
+<li>Tidak merokok.</li>
+<li>Rajin berolahraga.</li>
+<li>Menggunakan masker saat udara berpolusi.</li>
+<li>Menjaga kebersihan lingkungan.</li>
+<li>Mengonsumsi makanan bergizi.</li>
+<li>Menghindari paparan asap dan debu.</li>
+</ul>`
+},
+{
+title: "Slide 10 - Kesimpulan",
+content: `
+<p>Sistem pernapasan manusia sangat penting untuk
+kelangsungan hidup.</p>
+<p>Organ-organ pernapasan bekerja sama untuk
+memasukkan oksigen dan mengeluarkan karbon dioksida.</p>
+<h3>Terima Kasih!</h3>
+<p>Yuk, jaga kesehatan organ pernapasan kita! ❤️</p>`
+}
+];
+
+let currentSlide = 0;
+
+function renderSlide() {
+    const slide = slides[currentSlide];
+
+    document.getElementById('slideContent').innerHTML =
+        `<h2>${slide.title}</h2>${slide.content}`;
+
+    document.getElementById('slideNumber').innerText =
+        `Slide ${currentSlide + 1} dari ${slides.length}`;
+}
+
+function nextSlide() {
+    if(currentSlide < slides.length - 1) {
+        currentSlide++;
+        renderSlide();
+    }
+}
+
+function prevSlide() {
+    if(currentSlide > 0) {
+        currentSlide--;
+        renderSlide();
+    }
+}
+
+renderSlide();
+
+// DATA KUIS
+const quizData = [
+{
+q: "Apa fungsi utama sistem pernapasan manusia?",
+o: ["Mencerna makanan", "Mengambil oksigen dan mengeluarkan karbon dioksida",
+"Mengedarkan darah", "Menghasilkan hormon"],
+a: 1
+},
+{
+q: "Organ pertama tempat masuknya udara adalah...",
+o: ["Paru-paru", "Trakea", "Hidung", "Bronkus"],
+a: 2
+},
+{
+q: "Tempat terjadinya pertukaran gas adalah...",
+o: ["Faring", "Alveolus", "Laring", "Trakea"],
+a: 1
+},
+{
+q: "Cabang dari trakea disebut...",
+o: ["Bronkus", "Alveolus", "Faring", "Laring"],
+a: 0
+},
+{
+q: "Gas yang dibutuhkan tubuh untuk respirasi sel adalah...",
+o: ["Nitrogen", "Karbon dioksida", "Oksigen", "Hidrogen"],
+a: 2
+},
+{
+q: "Proses masuknya udara ke paru-paru disebut...",
+o: ["Ekspirasi", "Inspirasi", "Difusi", "Respirasi"],
+a: 1
+},
+{
+q: "Saat inspirasi, diafragma akan...",
+o: ["Relaksasi dan melengkung", "Berkontraksi dan mendatar",
+"Berhenti bergerak", "Menyempit"],
+a: 1
+},
+{
+q: "Penyakit akibat penyempitan saluran pernapasan adalah...",
+o: ["Asma", "Diabetes", "Anemia", "Maag"],
+a: 0
+},
+{
+q: "Apa fungsi rambut hidung?",
+o: ["Menghasilkan oksigen", "Menyaring kotoran dari udara",
+"Menghasilkan suara", "Mengatur denyut jantung"],
+a: 1
+},
+{
+q: "Gas yang dikeluarkan saat ekspirasi adalah...",
+o: ["Oksigen saja", "Karbon dioksida", "Hidrogen", "Helium"],
+a: 1
+}
+];
+
+// MENAMPILKAN KUIS
+function loadQuiz() {
+    let html = "";
+
+    quizData.forEach((q, index) => {
+        html += `
+        <div class="quiz-question">
+            <h3>${index+1}. ${q.q}</h3>
+            ${q.o.map((option, i) => `
+                <label class="option">
+                    <input type="radio"
+                    name="q${index}" value="${i}">
+                    ${String.fromCharCode(65+i)}. ${option}
+                </label>
+            `).join("")}
+        </div>`;
+    });
+
+    document.getElementById('questions').innerHTML = html;
+}
+
+loadQuiz();
+
+// MEMERIKSA JAWABAN
+function checkAnswers() {
+    let score = 0;
+    let answered = 0;
+    let explanation = "";
+
+    quizData.forEach((q, index) => {
+        const selected = document.querySelector(
+            `input[name="q${index}"]:checked`
+        );
+
+        if(selected) {
+            answered++;
+
+            if(Number(selected.value) === q.a) {
+                score++;
+                explanation += `<p>✅ Nomor ${index+1}: Benar</p>`;
+            } else {
+                explanation += `<p>❌ Nomor ${index+1}: Salah.
+                Jawaban: ${q.o[q.a]}</p>`;
+            }
+        } else {
+            explanation += `<p>⚠️ Nomor ${index+1}: Belum dijawab.
+            Jawaban: ${q.o[q.a]}</p>`;
+        }
+    });
+
+    if(answered < quizData.length) {
+        alert("Silakan jawab semua pertanyaan terlebih dahulu!");
+        return;
+    }
+
+    let nilai = score * 10;
+
+    const result = document.getElementById('result');
+    result.style.display = "block";
+
+    result.innerHTML = `
+        <h2>🎉 Hasil Kuis</h2>
+        <h3>Jawaban benar: ${score} dari 10</h3>
+        <h3>Nilai kamu: ${nilai}</h3>
+        <p>${nilai >= 80 ?
+        "Hebat! Kamu sudah memahami materi dengan baik! 🌟" :
+        "Tetap semangat belajar! Ayo pelajari materi kembali! 💪"}</p>
+        <hr>
+        <h3>Pembahasan Jawaban:</h3>
+        ${explanation}
+    `;
+
+    result.scrollIntoView({behavior:"smooth"});
+}
+
+// MENGULANGI KUIS
+function resetQuiz() {
+    document.getElementById('quizForm').reset();
+    document.getElementById('result').style.display = "none";
+}
+
+</script>
+
+</body>
+</html>
